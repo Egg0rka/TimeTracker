@@ -149,7 +149,7 @@
             Controls.Add(txtEmployeeName);
             Controls.Add(lblEmployeeName);
             Name = "Form1";
-            Text = "Form1";
+            Text = "TimeTracker";
             ((System.ComponentModel.ISupportInitialize)dgvEmployeeList).EndInit();
             ResumeLayout(false);
             PerformLayout();
