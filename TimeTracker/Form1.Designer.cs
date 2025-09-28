@@ -83,6 +83,7 @@
             btnAddEmployee.TabIndex = 4;
             btnAddEmployee.Text = "Добавить сотрудника";
             btnAddEmployee.UseVisualStyleBackColor = true;
+            btnAddEmployee.Click += btnAddEmployee_Click;
             // 
             // btnClockIn
             // 
@@ -92,6 +93,7 @@
             btnClockIn.TabIndex = 5;
             btnClockIn.Text = "Отметить приход";
             btnClockIn.UseVisualStyleBackColor = true;
+            btnClockIn.Click += btnClockIn_Click;
             // 
             // btnClockOut
             // 
@@ -101,6 +103,7 @@
             btnClockOut.TabIndex = 6;
             btnClockOut.Text = "Отметить уход";
             btnClockOut.UseVisualStyleBackColor = true;
+            btnClockOut.Click += btnClockOut_Click;
             // 
             // dgvEmployeeList
             // 
