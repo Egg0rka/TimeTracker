@@ -35,8 +35,12 @@
             btnAddEmployee = new Button();
             btnClockIn = new Button();
             btnClockOut = new Button();
-            dataGridView1 = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            dgvEmployeeList = new DataGridView();
+            ColumnName = new DataGridViewTextBoxColumn();
+            ColumnPosition = new DataGridViewTextBoxColumn();
+            ColumnCheckIn = new DataGridViewTextBoxColumn();
+            ColumnCheckOut = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)dgvEmployeeList).BeginInit();
             SuspendLayout();
             // 
             // lblEmployeeName
@@ -98,21 +102,42 @@
             btnClockOut.Text = "Отметить уход";
             btnClockOut.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dgvEmployeeList
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Bottom;
-            dataGridView1.Location = new Point(0, 300);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(800, 150);
-            dataGridView1.TabIndex = 7;
+            dgvEmployeeList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvEmployeeList.Columns.AddRange(new DataGridViewColumn[] { ColumnName, ColumnPosition, ColumnCheckIn, ColumnCheckOut });
+            dgvEmployeeList.Dock = DockStyle.Bottom;
+            dgvEmployeeList.Location = new Point(0, 300);
+            dgvEmployeeList.Name = "dgvEmployeeList";
+            dgvEmployeeList.Size = new Size(800, 150);
+            dgvEmployeeList.TabIndex = 7;
+            // 
+            // ColumnName
+            // 
+            ColumnName.HeaderText = "ФИО";
+            ColumnName.Name = "ColumnName";
+            // 
+            // ColumnPosition
+            // 
+            ColumnPosition.HeaderText = "Должность";
+            ColumnPosition.Name = "ColumnPosition";
+            // 
+            // ColumnCheckIn
+            // 
+            ColumnCheckIn.HeaderText = "Приход";
+            ColumnCheckIn.Name = "ColumnCheckIn";
+            // 
+            // ColumnCheckOut
+            // 
+            ColumnCheckOut.HeaderText = "Уход";
+            ColumnCheckOut.Name = "ColumnCheckOut";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvEmployeeList);
             Controls.Add(btnClockOut);
             Controls.Add(btnClockIn);
             Controls.Add(btnAddEmployee);
@@ -122,7 +147,7 @@
             Controls.Add(lblEmployeeName);
             Name = "Form1";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvEmployeeList).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -136,6 +161,10 @@
         private Button btnAddEmployee;
         private Button btnClockIn;
         private Button btnClockOut;
-        private DataGridView dataGridView1;
+        private DataGridView dgvEmployeeList;
+        private DataGridViewTextBoxColumn ColumnName;
+        private DataGridViewTextBoxColumn ColumnPosition;
+        private DataGridViewTextBoxColumn ColumnCheckIn;
+        private DataGridViewTextBoxColumn ColumnCheckOut;
     }
 }
