@@ -37,6 +37,7 @@
             btnClockOut = new Button();
             dgvEmployeeList = new DataGridView();
             ColumnName = new DataGridViewTextBoxColumn();
+            ColumnId = new DataGridViewTextBoxColumn();
             ColumnPosition = new DataGridViewTextBoxColumn();
             ColumnCheckIn = new DataGridViewTextBoxColumn();
             ColumnCheckOut = new DataGridViewTextBoxColumn();
@@ -108,7 +109,7 @@
             // dgvEmployeeList
             // 
             dgvEmployeeList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEmployeeList.Columns.AddRange(new DataGridViewColumn[] { ColumnName, ColumnPosition, ColumnCheckIn, ColumnCheckOut });
+            dgvEmployeeList.Columns.AddRange(new DataGridViewColumn[] { ColumnName, ColumnId, ColumnPosition, ColumnCheckIn, ColumnCheckOut });
             dgvEmployeeList.Dock = DockStyle.Bottom;
             dgvEmployeeList.Location = new Point(0, 300);
             dgvEmployeeList.Name = "dgvEmployeeList";
@@ -119,6 +120,13 @@
             // 
             ColumnName.HeaderText = "ФИО";
             ColumnName.Name = "ColumnName";
+            // 
+            // ColumnId
+            // 
+            ColumnId.HeaderText = "ID";
+            ColumnId.Name = "ColumnId";
+            ColumnId.ReadOnly = true;
+            ColumnId.Visible = false;
             // 
             // ColumnPosition
             // 
@@ -166,6 +174,7 @@
         private Button btnClockOut;
         private DataGridView dgvEmployeeList;
         private DataGridViewTextBoxColumn ColumnName;
+        private DataGridViewTextBoxColumn ColumnId;
         private DataGridViewTextBoxColumn ColumnPosition;
         private DataGridViewTextBoxColumn ColumnCheckIn;
         private DataGridViewTextBoxColumn ColumnCheckOut;
