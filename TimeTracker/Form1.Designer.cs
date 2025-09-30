@@ -36,11 +36,13 @@
             btnClockIn = new Button();
             btnClockOut = new Button();
             dgvEmployeeList = new DataGridView();
-            ColumnName = new DataGridViewTextBoxColumn();
             ColumnId = new DataGridViewTextBoxColumn();
+            ColumnName = new DataGridViewTextBoxColumn();
             ColumnPosition = new DataGridViewTextBoxColumn();
             ColumnCheckIn = new DataGridViewTextBoxColumn();
             ColumnCheckOut = new DataGridViewTextBoxColumn();
+            btnEditEmployee = new Button();
+            btnDeleteEmployee = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvEmployeeList).BeginInit();
             SuspendLayout();
             // 
@@ -109,17 +111,13 @@
             // dgvEmployeeList
             // 
             dgvEmployeeList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEmployeeList.Columns.AddRange(new DataGridViewColumn[] { ColumnName, ColumnId, ColumnPosition, ColumnCheckIn, ColumnCheckOut });
+            dgvEmployeeList.Columns.AddRange(new DataGridViewColumn[] { ColumnId, ColumnName, ColumnPosition, ColumnCheckIn, ColumnCheckOut });
             dgvEmployeeList.Dock = DockStyle.Bottom;
             dgvEmployeeList.Location = new Point(0, 300);
             dgvEmployeeList.Name = "dgvEmployeeList";
             dgvEmployeeList.Size = new Size(800, 150);
             dgvEmployeeList.TabIndex = 7;
-            // 
-            // ColumnName
-            // 
-            ColumnName.HeaderText = "ФИО";
-            ColumnName.Name = "ColumnName";
+            dgvEmployeeList.CellContentClick += dgvEmployeeList_CellContentClick;
             // 
             // ColumnId
             // 
@@ -127,6 +125,11 @@
             ColumnId.Name = "ColumnId";
             ColumnId.ReadOnly = true;
             ColumnId.Visible = false;
+            // 
+            // ColumnName
+            // 
+            ColumnName.HeaderText = "ФИО";
+            ColumnName.Name = "ColumnName";
             // 
             // ColumnPosition
             // 
@@ -143,11 +146,33 @@
             ColumnCheckOut.HeaderText = "Уход";
             ColumnCheckOut.Name = "ColumnCheckOut";
             // 
+            // btnEditEmployee
+            // 
+            btnEditEmployee.Location = new Point(195, 98);
+            btnEditEmployee.Name = "btnEditEmployee";
+            btnEditEmployee.Size = new Size(162, 23);
+            btnEditEmployee.TabIndex = 8;
+            btnEditEmployee.Text = "Редактировать сотрудника";
+            btnEditEmployee.UseVisualStyleBackColor = true;
+            btnEditEmployee.Click += btnEditEmployee_Click;
+            // 
+            // btnDeleteEmployee
+            // 
+            btnDeleteEmployee.Location = new Point(363, 98);
+            btnDeleteEmployee.Name = "btnDeleteEmployee";
+            btnDeleteEmployee.Size = new Size(127, 23);
+            btnDeleteEmployee.TabIndex = 9;
+            btnDeleteEmployee.Text = "Удалить сотрудника";
+            btnDeleteEmployee.UseVisualStyleBackColor = true;
+            btnDeleteEmployee.Click += btnDeleteEmployee_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnDeleteEmployee);
+            Controls.Add(btnEditEmployee);
             Controls.Add(dgvEmployeeList);
             Controls.Add(btnClockOut);
             Controls.Add(btnClockIn);
@@ -173,10 +198,17 @@
         private Button btnClockIn;
         private Button btnClockOut;
         private DataGridView dgvEmployeeList;
-        private DataGridViewTextBoxColumn ColumnName;
+
+        private void dgvEmployeeList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
         private DataGridViewTextBoxColumn ColumnId;
+        private DataGridViewTextBoxColumn ColumnName;
         private DataGridViewTextBoxColumn ColumnPosition;
         private DataGridViewTextBoxColumn ColumnCheckIn;
         private DataGridViewTextBoxColumn ColumnCheckOut;
+        private Button btnEditEmployee;
+        private Button btnDeleteEmployee;
     }
 }

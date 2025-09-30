@@ -112,7 +112,7 @@ namespace TimeTracker
             {
                 var row = dgvEmployeeList.SelectedRows[0];
                 int employeeId = Convert.ToInt32(row.Cells["ColumnId"].Value);
-                string time = DateTime.Now.ToString("HH:mm");
+                string dateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
 
                 using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
@@ -121,12 +121,12 @@ namespace TimeTracker
                     using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
                     {
                         cmd.Parameters.AddWithValue("@id", employeeId);
-                        cmd.Parameters.AddWithValue("@time", time);
+                        cmd.Parameters.AddWithValue("@time", dateTime);
                         cmd.ExecuteNonQuery();
                     }
                 }
 
-                row.Cells["ColumnCheckIn"].Value = time;
+                row.Cells["ColumnCheckIn"].Value = dateTime;
             }
             else
             {
@@ -140,7 +140,7 @@ namespace TimeTracker
             {
                 var row = dgvEmployeeList.SelectedRows[0];
                 int employeeId = Convert.ToInt32(row.Cells["ColumnId"].Value);
-                string time = DateTime.Now.ToString("HH:mm");
+                string dateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
 
                 using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
@@ -148,18 +148,98 @@ namespace TimeTracker
                     string sql = "UPDATE Attendance SET CheckOut = @time WHERE EmployeeId = @id AND CheckOut IS NULL";
                     using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
                     {
-                        cmd.Parameters.AddWithValue("@time", time);
+                        cmd.Parameters.AddWithValue("@time", dateTime);
                         cmd.Parameters.AddWithValue("@id", employeeId);
                         cmd.ExecuteNonQuery();
                     }
                 }
 
-                row.Cells["ColumnCheckOut"].Value = time;
+                row.Cells["ColumnCheckOut"].Value = dateTime;
             }
             else
             {
                 MessageBox.Show("Сначала выберите сотрудника (кликните по строке).");
             }
         }
+
+        private void btnEditEmployee_Click(object sender, EventArgs e)
+        {//Редактирование сотрудника
+            if (dgvEmployeeList.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Сначала выберите сотрудника (кликните по строке).");
+                return;
+            }
+
+            var row = dgvEmployeeList.SelectedRows[0];
+            int employeeId = Convert.ToInt32(row.Cells["ColumnId"].Value);
+
+            string newName = txtEmployeeName.Text.Trim();
+            string newPosition = txtEmployeePosition.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(newName) || string.IsNullOrWhiteSpace(newPosition))
+            {
+                MessageBox.Show("Введите ФИО и должность сотрудника.");
+                return;
+            }
+
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                string sql = "UPDATE Employees SET FullName = @name, Position = @position WHERE id = @id";
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@name", newName);
+                    cmd.Parameters.AddWithValue("@position", newPosition);
+                    cmd.Parameters.AddWithValue("@id", employeeId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            row.Cells["ColumnName"].Value = newName;
+            row.Cells["ColumnPosition"].Value = newPosition;
+
+            MessageBox.Show("Данные сотрудника обновлены.");
+        }
+
+        private void btnDeleteEmployee_Click(object sender, EventArgs e)
+        {//удалить сотрудника
+            if (dgvEmployeeList.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Сначала выберите сотрудника (кликните по строке).");
+                return;
+            }
+
+            var row = dgvEmployeeList.SelectedRows[0];
+            int employeeId = Convert.ToInt32(row.Cells["ColumnId"].Value);
+
+            var confirm = MessageBox.Show("Вы действительно хотите удалить сотрудника?",
+                                          "Подтверждение удаления",
+                                          MessageBoxButtons.YesNo,
+                                          MessageBoxIcon.Question);
+
+            if (confirm == DialogResult.Yes)
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
+                    string sqlAttendance = "DELETE FROM Attendance WHERE EmployeeId = @id";
+                    using (SQLiteCommand cmd = new SQLiteCommand(sqlAttendance, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id", employeeId);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    string sqlEmployee = "DELETE FROM Employees WHERE id = @id";
+                    using (SQLiteCommand cmd = new SQLiteCommand(sqlEmployee, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id", employeeId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                dgvEmployeeList.Rows.Remove(row);
+            }
+        }
+
     }
 }
